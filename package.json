@@ -1,0 +1,19 @@
+{
+  "name": "scriptdb",
+  "version": "1.0.0",
+  "description": "smallest json database",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "json",
+    "database",
+    "inmemory"
+  ],
+  "author": "Vikram Srirangam",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^23.6.0"
+  }
+}
