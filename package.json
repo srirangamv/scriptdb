@@ -1,8 +1,12 @@
 {
   "name": "scriptdb",
   "version": "1.0.0",
-  "description": "smallest json database",
-  "main": "index.js",
+  "description": "making javascript arrays SQL enabled",
+  "main": "index.js", 
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vwtt/ScriptDB.git"
+  },
   "scripts": {
     "test": "jest",
     "live": "live-server"
