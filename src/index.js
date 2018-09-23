@@ -9,7 +9,7 @@ let qry = {
     select: function (cols) { return this.map(r => { let p = {}; cols.map(c => p[c] = r[c]); return p; }); },
     where: function (qry) { let f = new Function('c', `return ${qry};`); let res = this.filter(r => f(r)); res.__proto__.__proto__ = qry; return res; },
     jointo: function ({ r, f }) {
-        let s = []; this.map(l => { r.forEach(r => { if (f(l, r)) s.push(Object.assign(l, r)); }); }); s.__proto__.__proto__ = qry; return s;
+        let s = []; this.map(l => { r.forEach(r => { if (f(l, r)) s.push({...l, ...r}); }); }); s.__proto__.__proto__ = qry; return s;
     },
     on: function (qry) { let f = new Function('l', 'r', `return ${qry};`); return { "r": [...this], "f": f }; },
     groupby: function (cols) {
