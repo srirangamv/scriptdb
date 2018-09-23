@@ -8,15 +8,18 @@ let agg = {
 let qry = {
     select: function (cols) { return this.map(r => { let p = {}; cols.map(c => p[c] = r[c]); return p; }); },
     where: function (qry) { let f = new Function('c', `return ${qry};`); let res = this.filter(r => f(r)); res.__proto__.__proto__ = qry; return res; },
-    join: function (r, f) { let s = []; this.map(l => { r.array.forEach(r => { if (f(l, r)) s.push(Object.assign(l, r)); }); }); s.__proto__.__proto__ = qry; return s; },
-    on: function (qry) { let f = new Function('l', 'r', `return ${qry};`); return { "right": this, "join": f }; },
+    jointo: function ({ r, f }) {
+        let s = []; this.map(l => { r.forEach(r => { if (f(l, r)) s.push(Object.assign(l, r)); }); }); s.__proto__.__proto__ = qry; return s;
+    },
+    on: function (qry) { let f = new Function('l', 'r', `return ${qry};`); return { "r": [...this], "f": f }; },
     groupby: function (cols) {
-        let g = [];
-        this.map(e => { let kols = cols.map(r => e[r]); let key = kols.join("__"); g[key] = g[key] || []; g[key].push(e); });
-        let res = []; for (let k in g) { let p = {}; k.split("__").map((c, n) => p[`key${n + 1}`] = c); p["rows"] = g[k]; res.push(p); } res.__proto__.__proto__ = qry; return res;
+        let g = new Map();
+        this.map(e => { let kols = cols.map(r => e[r]); let key = kols.join("__"); g.set(key, g.get(key) || []); b = g.get(key); b.push(e); });
+        let res = []; for (let [k, v] of g) { let p = {}; k.split("__").map((c, n) => p[`key${n + 1}`] = c); p["rows"] = v; p["rows"].__proto__.__proto__ = qry; res.push(p); } res.__proto__.__proto__ = qry; return res;
     },
     orderby: function (cols) {
-        let f = cols.map((e, n, ar) => { let s = ar[n]; let c = e.replace(" asc", "").replace(" desc", ""); let d = s.replace(" asc", "").replace(" desc", ""); s = n > 0 ? ` && a["${d}"]===b["${d}"]` : ""; return new Function('a', 'b', `return ${e.indexOf("desc") > 0 ? `a["${c}"]>b["${c}"]` : `a["${c}"]<b["${c}"]`}${s}`); }); for (let i in f) this.sort(f[i]); return this;
+        let rows = [...this];
+        let f = cols.map((e, n, ar) => { let s = ar[n]; let c = e.replace(" asc", "").replace(" desc", ""); let d = s.replace(" asc", "").replace(" desc", ""); s = n > 0 ? ` && a["${d}"]===b["${d}"]` : ""; return new Function('a', 'b', `return ${e.indexOf("desc") > 0 ? `a["${c}"]<b["${c}"]` : `a["${c}"]>b["${c}"]`}${s}`); }); for (let i of f) rows.sort(i); return rows;
     }
 };
 qry.__proto__ = agg;

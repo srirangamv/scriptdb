@@ -4,7 +4,8 @@
   "description": "smallest json database",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "live": "live-server"
   },
   "keywords": [
     "json",
