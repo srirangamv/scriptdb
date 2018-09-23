@@ -1,7 +1,12 @@
 # ScriptDB
-Make Javascript arrays SQL enabled.
+**Make Javascript arrays SQL enabled.**
+
+This is fun project. No serious validations included. Performance and Browser compatibility not verified. Wanted to code less.
+
+Suggestions! Welcome!!
 
 **sample usage:**
+```js
 db.create("Customers");
 db.Customers.insert({ "id": 1221, "name": "Itsy", "city": "Hyderabad" });
 db.Customers.insert({ "id": 1222, "name": "Bitsy", "city": "Bengaluru" });
@@ -36,3 +41,4 @@ console.log(orderdetaails);
 console.log(db.Customers.orderby(["id", "city desc"]));
 console.log(db.Customers.groupby(["city"]));
 console.log(db.Customers.groupby(["city", "name"]));
+```
