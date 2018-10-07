@@ -2,13 +2,12 @@
   "name": "scriptdb",
   "version": "1.0.0",
   "description": "making javascript arrays SQL enabled",
-  "main": "index.js", 
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vwtt/ScriptDB.git"
   },
   "scripts": {
-    "test": "jest",
     "live": "live-server"
   },
   "keywords": [
@@ -18,7 +17,5 @@
   ],
   "author": "Vikram Srirangam",
   "license": "MIT",
-  "devDependencies": {
-    "jest": "^23.6.0"
-  }
+  "devDependencies": {}
 }
