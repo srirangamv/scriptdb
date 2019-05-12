@@ -1,6 +1,6 @@
 {
   "name": "scriptdb",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "making javascript arrays SQL enabled",
   "main": "index.js",
   "repository": {
@@ -8,7 +8,7 @@
     "url": "git+https://github.com/vwtt/ScriptDB.git"
   },
   "scripts": {
-    "live": "live-server"
+    "start": "http-server"
   },
   "keywords": [
     "json",

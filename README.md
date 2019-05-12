@@ -57,16 +57,16 @@ db.create("Orders");
 db.Orders.insert({ "id": 21, "amount": 400.50, "customerid": 1221, "orderdate": new Date() });
 db.Orders.insert({ "id": 22, "amount": 50.00, "customerid": 1221, "orderdate": new Date() });
 
-// join Customers and Orders. "l", "r" are known aliases for referring tables.
+// join Customers and Orders. "l", "r" are known aliases for referring left and right tables.
 let orderdetaails = db.Orders.jointo(db.Customers.on(`l["customerid"]===r["id"]`));
 console.log(orderdetaails);
 
 // we can perform all the above mentioned query, aggregate operations on this OrderDetails. e.g.,
 orderdetaails.select(["customerid", "amount"]);
-orderdetaails.where(`c["amount"]>50`)
-orderdetaails.sum("amount")
-orderdetaails.avg("amount")        
-orderdetaails.max("amount")
-orderdetaails.min("amount")
-orderdetaails.count()
+orderdetaails.where(`c["amount"]>50`);
+orderdetaails.sum("amount");
+orderdetaails.avg("amount");       
+orderdetaails.max("amount");
+orderdetaails.min("amount");
+orderdetaails.count();
 ```
